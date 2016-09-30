@@ -1,0 +1,13 @@
+{
+  "name": "gulp-pepino",
+  "version": "1.0.0",
+  "description": "Plugin for running pepino code with chimp",
+  "author": "Acklen Avenue",
+  "license": "ISC",
+  "dependencies": {
+    "chimp": "0.38.0",
+    "gulp-util": "^3.0.7",
+    "minimist": "^1.2.0",
+    "pepino-lib": "^1.1.43"
+  }
+}

@@ -20,7 +20,7 @@ var translateStepFile = function(path) {
     fs.writeFileSync(path.substring(0, path.lastIndexOf('/')) + "generatedCode.step.js", jsCode);
 }
 
-var runChimp = function(options) {
+var runChimp = function(path, options) {
     if (options.browser) {
         knownOptions.default.browser = options.browser;
     }
@@ -31,7 +31,7 @@ var runChimp = function(options) {
         watcher = '--watch ';
     }
 
-    var child = exec(`chimp ` + watcher + `--browser=${options.browser}`);
+    var child = exec(`chimp --path=` + path + ` ` + watcher + `--browser=${options.browser}`);
 
     child.stdout.on('data', function(data) {
         if (data && data !== '\n') {
@@ -46,5 +46,5 @@ var runChimp = function(options) {
 
 module.exports = function(path, options) {
     translateStepFile(path);
-    runChimp(options);
+    runChimp(path.substring(0, path.lastIndexOf('/')), options);
 }

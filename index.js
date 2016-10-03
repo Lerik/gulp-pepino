@@ -17,7 +17,7 @@ var options = minimist(process.argv.slice(2), knownOptions);
 var translateStepFile = function(path) {
     var pepinoLang = fs.readFileSync(path, 'utf8');
     var jsCode = pepino.convert(pepinoLang);
-    fs.writeFileSync(path.substring(0, path.lastIndexOf('/')) + "generatedCode.step.js", jsCode);
+    fs.writeFileSync(path.substring(0, path.lastIndexOf('/')) + "/generatedCode.step.js", jsCode);
 }
 
 var runChimp = function(path, options) {
@@ -44,7 +44,13 @@ var runChimp = function(path, options) {
     });
 }
 
-module.exports = function(path, options) {
+var run = function(path, options) {
     translateStepFile(path);
     runChimp(path.substring(0, path.lastIndexOf('/')), options);
 }
+
+module.exports = {
+    translate: translateStepFile,
+    runChimp: runChimp,
+    run: run
+};

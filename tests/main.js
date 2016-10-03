@@ -24,14 +24,11 @@ describe('Gulp Pepino', function() {
         beforeEach(function() {
             stub_fs_readFileSync = sinon.stub(fs, 'readFileSync');
             stub_pepino_convert = sinon.stub(pepino, 'convert');
-            stub_proc_exec = sinon.stub(proc, 'exec');
-
         });
 
         afterEach(function() {
             stub_fs_readFileSync.restore();
             stub_pepino_convert.restore();
-            stub_proc_exec.restore();
         });
 
         it('should translate the step file', function() {
@@ -41,18 +38,25 @@ describe('Gulp Pepino', function() {
             stub_fs_readFileSync.restore();
 
             var contentWritten = fs.readFileSync('./features/generatedCode.step.js', 'utf8');
-            console.log(contentWritten);
             expect(contentWritten).to.be.equal(contentTranslated);
         });
-
-        it('should run chimp', function(){
-            
-            gpepino.runChimp(path.substring(0, path.lastIndexOf('/')), {});
-            sinon.assert.called(proc.exec);
-        });
-
-
     });
 
+    describe('When running translated step file', function(){
+        var stub_child_process_exec;
+
+        beforeEach(function() {
+            stub_child_process_exec = sinon.stub(proc, 'exec', function(){});
+        });
+
+        afterEach(function(){
+            stub_child_process_exec.restore();
+        });
+
+        it('should run chimp process', function(){
+            gpepino.runChimp(path.substring(0, path.lastIndexOf('./features')), {});
+            expect(stub_child_process_exec).to.have.been.calledOnce;
+        });
+    });
     
 });

@@ -34,10 +34,13 @@ describe('Gulp Pepino', function() {
         it('should translate the step file', function() {
             stub_fs_readFileSync.returns(contentRead);
             stub_pepino_convert.returns(contentTranslated);
-            gpepino.translate(path);
+            gpepino.translateStepFile({
+                path: path,
+                contents: new Buffer([0x62, 0x75, 0x66, 0x66, 0x65, 0x72])
+            });
             stub_fs_readFileSync.restore();
 
-            var contentWritten = fs.readFileSync('./features/generatedCode.step.js', 'utf8');
+            var contentWritten = fs.readFileSync('./features/test.step.js', 'utf8');
             expect(contentWritten).to.be.equal(contentTranslated);
         });
     });

@@ -1,0 +1,121 @@
+I visit the API page
+    Navigate to "http://webdriver.io"
+    Click <=API>
+
+I search for "$searchText"
+    Type "$searchText" into <input[name='search']>
+
+I should find "$text" in the results
+    Verify "$text" is in an <a> element
+
+I visit "$url"
+    Navigate to "$url"
+
+I select "$optionLabel" from "$selectElement"
+    Select option named "$optionLabel" from <$selectElement>
+
+the value of "$selectElement" should be "$elementValue"
+    Verify the value "$elementValue" is selected in <$selectElement>
+
+the selected option of "$selectElement" should be "$elementValue"
+    Verify "$elementValue" is selected in <$selectElement>
+
+there is an alert box waiting for input
+    Click <input[type=button]>
+    Wait 2 seconds
+
+I dismiss the alert
+    Dismiss alert
+
+I accept the alert
+    Accept alert
+
+I should be able to do other things on the site
+    Click <a[href='startpag.htm']>
+    Verify "Welcome to JavaScript FAQ home page!" is in a <p> element
+
+I attempt to log in using my google account
+    Click <=Login>
+    Wait 2 seconds
+    Click <a.google-btn>
+    Wait 3 seconds
+    Switch to the "Sign in - Google Accounts" tab
+    Type "dtest12312312@gmail.com" into <input#Email>
+    Click <input#next>
+    Wait 1 seconds
+    Type "^>!mEP6ajfv+&v5t" into <input#Passwd>
+    Click <input#signIn>
+    Wait 3 seconds
+    Switch to the "Online Courses" tab
+    Wait 1 second
+
+I toggle the "$checkboxElement" checkbox
+	Toggle the <$checkboxElement> checkbox
+
+"$checkboxElement" should be checked
+	Verify <$checkboxElement> to be checked
+
+I untoggle the "$checkboxElement" checkbox
+	Toggle the <$checkboxElement> checkbox
+
+"$checkboxElement" should not be checked
+	Verify <$checkboxElement> not to be checked
+
+the text in the alert should be "$something"
+	Verify alert text to be "$something"
+	Accept alert
+
+I should be logged in with my profile
+    Click <img.dropdown__avatar>
+    Wait 2 second
+    Click <=Account>
+    Wait 1 second
+    Verify "dtest12312312@gmail.com" is in a <b> element
+
+the title should be "$title"
+    Verify title to be "$title"
+
+the url must be "$url"
+	Verify current url to be "$url"
+
+the object "$selector" should have the css property "$style" similar to "$value"
+	Verify that object <$selector> has css property "$style" similar to "$value"
+
+the object "$selector" should have the css property "$style" equal to "$value"
+	Verify that object <$selector> has css property "$style" equal to "$value"
+
+the object "$object" should have attribute "$attribute" with value "$value"
+	Verify that object <$object> has attribute "$attribute" with value "$value"
+
+the object "$object" should have attribute "$attribute"
+	Verify that object <$object> has attribute "$attribute"
+
+I switch to "$selector" iframe 
+    Switch to iframe <$selector>
+
+I should find "$text" in the alert
+   Double Click <#myButton>
+   Verify alert text to be "$text"
+   Accept alert
+
+the alert should display "$text" after clicking menu-item
+    Right Click <span.context-menu-one>
+    Click <li.context-menu-icon-edit>
+    Verify alert text to be "$text"
+    Accept alert
+
+I type "$searchText"
+    Type "$searchText" into <input#search-box>
+
+the input <input#search-box> should be empty
+    Clear <input#search-box>
+    Verify <input#search-box> is empty
+
+I should see a new time zone in the dropdown
+    Add "New Time Zone" to dropdown with class <.js-states>
+
+I should see a new value in the dropdown
+    Add "new value" to dropdown with id <#dropdown>
+
+I should see "$text" in the dropdown
+    Add "$text" to dropdown with name "dropdown"

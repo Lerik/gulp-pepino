@@ -1,37 +1,36 @@
-var pepino = require('pepino-lib');
+var pepinoLib = require('pepino-lib');
 var fs = require('fs');
-var minimist = require('minimist');
 var gutil = require('gulp-util');
 var PluginError = gutil.PluginError;
 var exec = require('child_process').exec;
+var path = require('path');
+var _ = require('lodash');
+var through = require('through2');
 
 const PLUGIN_NAME = 'gulp-pepino';
 
-var knownOptions = {
-  string: 'browser',
-  default: { browser: 'chrome' }
+var browsers = {
+    CH: 'chrome',
+    IE: 'ie',
+    FX: 'firefox',
+    SF: 'safari',
+    PJ: 'phantomjs'
 };
 
-var options = minimist(process.argv.slice(2), knownOptions);
+var chimpBrowserOptions = {
+  string: 'browser',
+  default: { browser: browsers.CH }
+};
 
-var translateStepFile = function(path) {
-    var pepinoLang = fs.readFileSync(path, 'utf8');
-    var jsCode = pepino.convert(pepinoLang);
-    fs.writeFileSync(path.substring(0, path.lastIndexOf('/')) + "/generatedCode.step.js", jsCode);
-}
-
-var runChimp = function(path, options) {
-    if (options.browser) {
-        knownOptions.default.browser = options.browser;
+var runChimp = function(directory, browser) {
+    var browserSelected;
+    if (browser) {
+        browserSelected = browser;
+    } else {
+        browserSelected = chimpBrowserOptions.default.browser;
     }
 
-    var watcher = '';
-
-    if (options.watch) {
-        watcher = '--watch ';
-    }
-
-    var child = exec(`chimp --path=` + path + ` ` + watcher + `--browser=${options.browser}`);
+    var child = exec(`chimp --path="` + directory + `" --browser=${browserSelected}`);
 
     child.stdout.on('data', function(data) {
         if (data && data !== '\n') {
@@ -44,13 +43,50 @@ var runChimp = function(path, options) {
     });
 }
 
-var run = function(path, options) {
-    translateStepFile(path);
-    runChimp(path.substring(0, path.lastIndexOf('/')), options);
+var translateStepFile = function(stepFile) {
+    console.log('Translating: ' + path.basename(stepFile.path));
+    var content = stepFile.contents.toString('utf8');
+    var jsCode = pepinoLib.convert(content);
+    
+    var fileLocation = path.format({
+        dir: path.dirname(stepFile.path),
+        base: path.basename(stepFile.path) + '.js'
+    });
+    
+    fs.writeFileSync(fileLocation, jsCode);
+    console.log(path.basename(stepFile.path) + ' has been translated successfully.');
+}
+
+var pepino = function(browser) {
+    return through({ objectMode: true }, function(stepFile, enc, callback) {
+        translateStepFile(stepFile);
+        runChimp(path.dirname(stepFile.path), browser);
+        this.push(null);
+        callback();
+    });
+}
+
+var translateStepFileStream = function() {
+    return through({ objectMode: true }, function(stepFile, enc, callback) {
+        translateStepFile(stepFile);
+        this.push(null);
+        callback();
+    });
+}
+
+var runChimpStream = function(browser) {
+    return through({ objectMode: true }, function(stepFile, enc, callback) {
+        runChimp(stepFile.path, browser);
+        this.push(null);
+        callback();
+    });
 }
 
 module.exports = {
-    translate: translateStepFile,
+    translateStepFile: translateStepFile,
+    translateStepFileStream: translateStepFileStream,
     runChimp: runChimp,
-    run: run
+    runChimpStream: runChimpStream,
+    pepino: pepino,
+    browsers: browsers
 };

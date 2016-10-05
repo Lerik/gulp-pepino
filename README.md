@@ -1,4 +1,4 @@
-# gulp-pepino [![NPM version][npm-image]][npm-url]
+# gulp-pepino [![NPM version]][npm-url]
 > A plugin for translating step files to cucumberjs by using Pepino.
 
 ## Usage
@@ -20,3 +20,4 @@ gulp.task('translating-step-files', function(){
     .pipe(pepinoPlugin.pepino());
 });
 
+[npm-url]: https://www.npmjs.com/package/gulp-pepino

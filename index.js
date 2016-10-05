@@ -1,13 +1,7 @@
 var pepinoLib = require('pepino-lib');
 var fs = require('fs');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
-var exec = require('child_process').exec;
 var path = require('path');
-var _ = require('lodash');
 var through = require('through2');
-
-const PLUGIN_NAME = 'gulp-pepino';
 
 var translateStepFile = function(stepFile) {
     console.log('Translating: ' + path.basename(stepFile.path));

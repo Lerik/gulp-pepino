@@ -44,22 +44,5 @@ describe('Gulp Pepino', function() {
             expect(contentWritten).to.be.equal(contentTranslated);
         });
     });
-
-    describe('When running translated step file', function(){
-        var stub_child_process_exec;
-
-        beforeEach(function() {
-            stub_child_process_exec = sinon.stub(proc, 'exec', function(){});
-        });
-
-        afterEach(function(){
-            stub_child_process_exec.restore();
-        });
-
-        it('should run chimp process', function(){
-            gpepino.runChimp(path.substring(0, path.lastIndexOf('./features')), {});
-            expect(stub_child_process_exec).to.have.been.calledOnce;
-        });
-    });
     
 });

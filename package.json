@@ -1,6 +1,6 @@
 {
   "name": "gulp-pepino",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Plugin for running pepino code with chimp",
   "author": "Acklen Avenue",
   "license": "ISC",

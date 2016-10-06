@@ -1,17 +1,17 @@
 {
   "name": "gulp-pepino",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Plugin for running pepino code with chimp",
   "author": "Acklen Avenue",
   "license": "ISC",
   "dependencies": {
-    "pepino-lib": "^1.1.43",
+    "pepino-lib": "*",
     "through2": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.1.0",
-    "pepino-lib": "^1.1.43",
+    "pepino-lib": "*",
     "sinon": "^1.17.6"
   }
 }

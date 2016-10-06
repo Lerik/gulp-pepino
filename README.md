@@ -17,5 +17,5 @@ var pepinoPlugin = require('gulp-pepino');
 
 gulp.task('translating-step-files', function(){
   gulp.src(['./tests/*.step'])
-    .pipe(pepinoPlugin.pepino());
+    .pipe(pepino());
 });

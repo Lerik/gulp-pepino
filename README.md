@@ -13,7 +13,7 @@ Then, add it to your `gulpfile.js`:
 
 ### Translating step files
 ```javascript
-var pepinoPlugin = require('gulp-pepino');
+var pepino = require('gulp-pepino');
 
 gulp.task('translating-step-files', function(){
   gulp.src(['./tests/*.step'])

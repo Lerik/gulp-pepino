@@ -17,13 +17,10 @@ var translateStepFile = function(stepFile) {
     console.log(path.basename(stepFile.path) + ' has been translated successfully.');
 }
 
-module.exports = {
-    function() {
-        return through({ objectMode: true }, function(stepFile, enc, callback) {
-            translateStepFile(stepFile);
-            this.push(null);
-            callback();
-        });
-    },
-    translateStepFile: translateStepFile
+module.exports = function() {
+    return through({ objectMode: true }, function(stepFile, enc, callback) {
+        translateStepFile(stepFile);
+        this.push(null);
+        callback();
+    });
 }
